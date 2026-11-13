@@ -227,13 +227,12 @@ export const level2: Level = {
   },
   sticker: {
     id: 'st-fk-2',
-    name: 'Skating Pebble',
+    name: 'Peekaboo Mochi',
     draw: () =>
       defs(frostDefs()) +
-      ellipse(100, 178, 70, 12, '#B4DBF8') +
-      path('M42 176C70 186 120 170 160 178', 'none', stroke('#FFFFFF', 4)) +
-      pebble(100, 176, { s: 1.12, pose: 'wave', mood: 'joy', skates: true, scarf: P.coralDeep, hat: '#6DD3A8', shadow: false }) +
-      sparkle(36, 70, 9) +
-      sparkle(166, 56, 7),
+      iceHole(100, 170, 56, 16) +
+      mochi(100, 172, { s: 1.04, peek: true, mood: 'joy', hat: '#FFCF5C', hatStripe: '#FFFFFF' }) +
+      sparkle(34, 70, 9) +
+      sparkle(168, 92, 7),
   },
 };

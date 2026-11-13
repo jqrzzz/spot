@@ -246,7 +246,7 @@ export function plinky(o: MonsterOpts): string {
     shine(-26, headY - 22, 14, 8, -35, 0.6) +
     bangs +
     shine(-18, -204, 10, 5, -20, 0.5) +
-    extraAcc(o.extra ?? 'none', 40, -200, o.acc ?? P.pinkDeep) +
+    extraAcc(o.extra ?? 'none', o.extra === 'crown' ? 0 : 40, o.extra === 'crown' ? -212 : -200, o.acc ?? P.pinkDeep) +
     face({ x: 0, y: headY + 8, s: 1.6, mood: o.mood ?? 'happy', look: o.look }) +
     (o.mid ?? '') +
     shL.art +

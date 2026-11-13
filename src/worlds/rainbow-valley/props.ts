@@ -480,8 +480,8 @@ export function kite(x: number, y: number, s: number, fill: string, pattern: 'st
   return g(
     tailArt +
       path(d, fill, stroke(l, 4)) +
-      `<clipPath id="kc${Math.round(x)}x${Math.round(y)}"><path d="${d}"/></clipPath>` +
-      g(marks, { 'clip-path': `url(#kc${Math.round(x)}x${Math.round(y)})` }) +
+      `<clipPath id="rvKite${Math.round(x)}x${Math.round(y)}"><path d="${d}"/></clipPath>` +
+      g(marks, { 'clip-path': `url(#rvKite${Math.round(x)}x${Math.round(y)})` }) +
       path('M0 -46V50M-32 -4H32', 'none', stroke(l, 2.4)) +
       path(d, 'none', stroke(l, 4)) +
       shine(-12, -22, 6, 10, 30, 0.5),
@@ -879,4 +879,136 @@ export function cloudPuffPlant(x: number, y: number, s: number): string {
 /** Curly wind swoosh line. */
 export function swoosh(x: number, y: number, w: number, opacity = 0.85): string {
   return path(`M${n(x)} ${n(y)}q${n(w * 0.3)} ${n(-w * 0.08)} ${n(w * 0.6)} 0t${n(w * 0.3)} -2q${n(w * 0.12)} ${n(-w * 0.1)} 0 ${n(-w * 0.14)}q${n(-w * 0.08)} ${n(-w * 0.02)} ${n(-w * 0.06)} ${n(w * 0.07)}`, 'none', { ...stroke('#FFFFFF', 3.4), opacity });
+}
+
+/* ------------------------------------------------------------------ festival */
+
+/** Candle positions (x offsets) on festivalCake's top tier; flames sit at y - 174·s. */
+export const CAKE_CANDLES = [-45, -15, 15, 45];
+
+/** Two-tier festival cake with candles. (x, y) = bottom centre; `candles` = how many of CAKE_CANDLES. */
+export function festivalCake(x: number, y: number, s: number, candles: number): string {
+  const pink = '#FFB8D6';
+  const pl = darken(pink, 0.3);
+  const cream = '#FFF6E6';
+  const cl = darken(cream, 0.28);
+  const drips = (y0: number, w: number, col: string, line_: string) => {
+    let d = `M${-w / 2} ${y0}H${w / 2}V${y0 + 10}`;
+    const k = 8;
+    for (let i = k; i > 0; i--) {
+      const x0 = -w / 2 + (w / k) * i;
+      const x1 = x0 - w / k;
+      const deep = i % 2 ? 16 : 9;
+      d += `Q${n(x0 - w / k / 4)} ${y0 + deep + 4} ${n((x0 + x1) / 2)} ${y0 + deep}Q${n(x1 + w / k / 4)} ${y0 + deep + 4} ${n(x1)} ${y0 + 10}`;
+    }
+    return path(d + 'Z', col, stroke(line_, 2.6));
+  };
+  let cs = '';
+  CAKE_CANDLES.slice(0, candles).forEach((dx, i) => {
+    const col = [P.sky, P.lemon, P.lilac, P.mint][i];
+    cs +=
+      circle(dx, -174, 18, '#FFF3B0', { opacity: 0.5 }) +
+      rect(dx - 9, -154, 18, 52, 6, col, stroke(darken(col, 0.3), 2.8)) +
+      path(`M${dx - 9} -140l18 -9M${dx - 9} -124l18 -9`, 'none', stroke('#FFFFFF', 3.4)) +
+      path(`M${dx} -156V-162`, 'none', stroke(P.ink, 2.2)) +
+      path(`M${dx} -190Q${dx + 11} -174 ${dx + 7} -166Q${dx} -157 ${dx - 7} -166Q${dx - 11} -174 ${dx} -190Z`, '#FFD45E', stroke('#F29A3A', 2.6)) +
+      ellipse(dx, -169, 3, 4.6, '#FFFFFF', { opacity: 0.85 });
+  });
+  return g(
+    shadow(0, 2, 78, 10, 0.16) +
+      rect(-68, -56, 136, 56, 10, pink, stroke(pl, 3.4)) +
+      drips(-56, 136, cream, cl) +
+      path('M-68 -18H68', 'none', stroke(lighten(pink, 0.5), 4)) +
+      [-48, -16, 16, 48].map((dx) => circle(dx, -30, 5, '#FFFFFF', stroke(pl, 1.8))).join('') +
+      rect(-52, -104, 104, 48, 10, cream, stroke(cl, 3.4)) +
+      drips(-104, 104, pink, pl) +
+      [-34, 0, 34].map((dx) => circle(dx, -70, 4.4, '#FFB8D6')).join('') +
+      shine(-40, -88, 8, 4) +
+      cs,
+    { transform: tf(x, y, s) },
+  );
+}
+
+/** Round paper lantern hanging from (x, y - 24·s); glows softly. */
+export function paperLantern(x: number, y: number, s: number, fill: string, glowOn = true): string {
+  const l = darken(fill, 0.3);
+  return g(
+    (glowOn ? circle(0, 0, 34, '#FFF2B8', { opacity: 0.28 }) + circle(0, 0, 24, '#FFF2B8', { opacity: 0.32 }) : '') +
+      path('M0 -34V-22', 'none', stroke(P.inkSoft, 2)) +
+      rect(-8, -24, 16, 6, 3, P.gold, stroke(P.goldDeep, 2)) +
+      ellipse(0, 0, 19, 18, fill, stroke(l, 2.8)) +
+      path('M-9 -16Q-15 0 -9 16M0 -18V18M9 -16Q15 0 9 16', 'none', stroke(l, 1.8)) +
+      ellipse(-6, -6, 5, 7, '#FFFFFF', { opacity: 0.55 }) +
+      rect(-7, 16, 14, 6, 3, P.gold, stroke(P.goldDeep, 2)) +
+      path('M0 22V30', 'none', stroke(P.goldDeep, 2.4)),
+    { transform: tf(x, y, s) },
+  );
+}
+
+/** Lantern on a pole. (x, y) = pole base. */
+export function lanternPost(x: number, y: number, s: number, fill: string): string {
+  return g(
+    shadow(0, 2, 20, 5, 0.14) +
+      rect(-4, -140, 8, 140, 4, '#FFF4E6', stroke('#C9A98A', 2.6)) +
+      path('M0 -136Q20 -150 34 -132', 'none', stroke('#C9A98A', 4)) +
+      paperLantern(34, -96, 1.15, fill),
+    { transform: tf(x, y, s) },
+  );
+}
+
+/** Firework burst. */
+export function firework(x: number, y: number, r: number, a: string, b: string): string {
+  let out = circle(x, y, r * 0.9, '#FFFFFF', { opacity: 0.18 });
+  for (let i = 0; i < 12; i++) {
+    const ang = (i * 30 * Math.PI) / 180;
+    const col = i % 2 ? a : b;
+    const r1 = r * 0.28;
+    const r2 = r * (i % 2 ? 0.78 : 0.95);
+    out += line(x + Math.cos(ang) * r1, y + Math.sin(ang) * r1, x + Math.cos(ang) * r2, y + Math.sin(ang) * r2, col, 5);
+    out += circle(x + Math.cos(ang) * (r2 + 8), y + Math.sin(ang) * (r2 + 8), 4.2, col);
+  }
+  return out + sparkle(x, y, r * 0.3, '#FFFFFF');
+}
+
+/** Eighth music note. (x, y) = note head centre. */
+export function musicNote(x: number, y: number, s: number, fill: string): string {
+  const l = darken(fill, 0.3);
+  return g(
+    path('M8 0V-40Q18 -34 24 -24Q20 -30 8 -30', 'none', stroke(l, 4.4)) +
+      ellipse(0, 0, 10, 7.5, fill, { ...stroke(l, 3), transform: 'rotate(-24)' }) +
+      ellipse(-3, -2, 3, 2, '#fff', { opacity: 0.7, transform: 'rotate(-24)' }),
+    { transform: tf(x, y, s) },
+  );
+}
+
+/** Moon: crescent (opening right) or full. */
+export function moon(x: number, y: number, r: number, full: boolean): string {
+  const fill = '#FFF3B5';
+  const l = '#E8C25A';
+  if (full)
+    return (
+      circle(x, y, r + 14, '#FFF8D6', { opacity: 0.35 }) +
+      circle(x, y, r, fill, stroke(l, 3.4)) +
+      circle(x + r * 0.3, y - r * 0.2, r * 0.18, '#F7E39A') +
+      circle(x - r * 0.25, y + r * 0.35, r * 0.13, '#F7E39A') +
+      circle(x + r * 0.15, y + r * 0.45, r * 0.08, '#F7E39A') +
+      shine(x - r * 0.4, y - r * 0.4, r * 0.22, r * 0.12)
+    );
+  return (
+    circle(x - r * 0.3, y, r * 0.9, '#FFF8D6', { opacity: 0.3 }) +
+    path(`M${n(x)} ${n(y - r)}A${n(r)} ${n(r)} 0 0 0 ${n(x)} ${n(y + r)}A${n(r * 0.55)} ${n(r)} 0 0 1 ${n(x)} ${n(y - r)}Z`, fill, stroke(l, 3.4)) +
+    shine(x - r * 0.62, y - r * 0.3, r * 0.1, r * 0.2, 20)
+  );
+}
+
+/** Wrapped present. (x, y) = bottom centre. */
+export function present(x: number, y: number, w: number, h: number, fill: string, ribbon: string): string {
+  const l = darken(fill, 0.3);
+  const rl = darken(ribbon, 0.3);
+  return (
+    shadow(x, y + 2, w * 0.6, 6, 0.14) +
+    rect(x - w / 2, y - h, w, h, 6, fill, stroke(l, 3)) +
+    rect(x - 5, y - h, 10, h, 2, ribbon, stroke(rl, 2)) +
+    path(`M${n(x)} ${n(y - h)}c-10 -14 -22 -12 -20 -2c2 6 12 4 20 2zM${n(x)} ${n(y - h)}c10 -14 22 -12 20 -2c-2 6 -12 4 -20 2z`, ribbon, stroke(rl, 2.4))
+  );
 }

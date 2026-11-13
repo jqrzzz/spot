@@ -593,6 +593,10 @@ export function crystalCluster(x: number, base: number, s: number, tone: Crystal
 export interface SnowmanOpts {
   buttons?: number;
   buttonColors?: string[];
+  /** Button radius (local units, default 10.5). */
+  buttonR?: number;
+  /** Custom button positions (local units); defaults to SNOWMAN_BUTTON_SLOTS. */
+  buttonSlots?: [number, number][];
   hat?: string | false;
   scarf?: string | false;
   scarfStripe?: string;
@@ -604,10 +608,10 @@ export interface SnowmanOpts {
 
 /** Fixed button slots so that adding a button never moves the others. */
 export const SNOWMAN_BUTTON_SLOTS: [number, number][] = [
-  [0, -112],
-  [0, -84],
-  [0, -56],
-  [0, -30],
+  [0, -86],
+  [0, -62],
+  [0, -38],
+  [0, -14],
 ];
 
 /** Two-ball snow-friend standing on (x, base). `s` = scale (1 ≈ 190 tall). */
@@ -626,8 +630,9 @@ export function snowman(x: number, base: number, s: number, o: SnowmanOpts): str
   // buttons
   const nb = o.buttons ?? 3;
   const bc = o.buttonColors ?? ['#FF9DBB', '#9CC9FF', '#FFD66B', '#B3EECB'];
-  SNOWMAN_BUTTON_SLOTS.slice(0, nb).forEach(([bx, by], i) => {
-    art += circle(bx, by, 10.5, bc[i % bc.length], stroke(darken(bc[i % bc.length], 0.35), 3.2)) + circle(bx - 3, by - 3, 3, '#fff', { opacity: 0.8 });
+  (o.buttonSlots ?? SNOWMAN_BUTTON_SLOTS).slice(0, nb).forEach(([bx, by], i) => {
+    const br = o.buttonR ?? 10.5;
+    art += circle(bx, by, br, bc[i % bc.length], stroke(darken(bc[i % bc.length], 0.35), 3.2)) + circle(bx - br * 0.3, by - br * 0.3, br * 0.28, '#fff', { opacity: 0.8 });
   });
   // face
   art += face({ x: 0, y: -166, s: 1.05, mood: o.mood ?? 'happy', gap: 16 });
@@ -825,8 +830,8 @@ export function tower(x0: number, x1: number, top: number, base: number, fill = 
 }
 
 export interface CastleOpts {
-  /** Extra windows to light, by name (lets a level add exactly one). */
-  extraWindow?: boolean;
+  /** Light one extra window on the left or right tall tower (a level difference). */
+  extraWindow?: 'left' | 'right' | false;
   flags?: [string, string, string];
   /** Draw the gate open and glowing. */
   gateGlow?: boolean;
@@ -834,8 +839,7 @@ export interface CastleOpts {
 
 /**
  * Frostlight Castle centred on x, standing on `base`. `s` = scale (1 ≈ 440 wide, 400 tall).
- * The optional extra window sits at local (-140,-150) on the left tower → scene
- * (x - 140·s, base - 150·s), see castleExtraWindowAt().
+ * The optional extra window sits at local (±140, -112) on a tall tower, see castleExtraWindowAt().
  */
 export function castle(x: number, base: number, s: number, o: CastleOpts = {}): string {
   const W = url('fkWall');
@@ -864,9 +868,13 @@ export function castle(x: number, base: number, s: number, o: CastleOpts = {}): 
   }
   // main hall
   a += rect(-110, -170, 220, 170, 6, W, stroke(L, 4));
-  // crenellations with snow
-  for (let i = 0; i < 6; i++) a += rect(-110 + i * 40, -186, 26, 20, 4, W, stroke(L, 3.5));
-  a += snowCap(-114, 114, -172, 10, true);
+  // crenellations, each with its own little snow cap
+  a += path('M-106 -168H106', 'none', { ...stroke('#FFFFFF', 6), opacity: 0.9 });
+  for (let i = 0; i < 6; i++) {
+    const mx = -110 + i * 38.8;
+    a += rect(mx, -192, 26, 26, 4, W, stroke(L, 3.5));
+    a += path(`M${n(mx - 4)} ${-190}Q${n(mx + 13)} ${-206} ${n(mx + 30)} ${-190}Q${n(mx + 22)} ${-185} ${n(mx + 13)} ${-188}Q${n(mx + 4)} ${-185} ${n(mx - 4)} ${-190}Z`, '#FFFFFF', stroke(F.snowLine, 2.4));
+  }
   // hall windows
   a += windowGlow(-62, -112, 26, 38, 'arch', { frame: L });
   a += windowGlow(62, -112, 26, 38, 'arch', { frame: L });
@@ -880,12 +888,12 @@ export function castle(x: number, base: number, s: number, o: CastleOpts = {}): 
   a += icicleRow(-96, 96, -166, [18, 12, 22, 10, 16, 24, 12, 18], 7);
   // ice-crystal decorations on wall corners
   a += sparkle(-118, -178, 10) + sparkle(118, -178, 10);
-  if (o.extraWindow) a += windowGlow(-140, -122, 20, 28, 'arch', { frame: L, sill: false });
+  if (o.extraWindow) a += windowGlow(o.extraWindow === 'left' ? -140 : 140, -112, 30, 44, 'arch', { frame: L, sill: false });
   return place(a, x, base, s);
 }
 
 /** Scene position of the castle's optional extra window. */
-export const castleExtraWindowAt = (x: number, base: number, s: number): [number, number] => [x - 140 * s, base - 122 * s];
+export const castleExtraWindowAt = (x: number, base: number, s: number, side: 'left' | 'right'): [number, number] => [x + (side === 'left' ? -140 : 140) * s, base - 112 * s];
 
 /* ------------------------------------------------------------------ cosy things */
 

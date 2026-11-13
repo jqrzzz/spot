@@ -4,7 +4,7 @@
  * and Mama Duck leads her ducklings underneath. Introduces counting (ducklings, stripes, birds).
  */
 import type { Level, Point } from '../../core/types.ts';
-import { P, circle, cloud, defs, g, linear, n, path, puff, rainbow, shine, sparkle, stroke, url } from '../../art/kit.ts';
+import { P, circle, cloud, defs, ellipse, g, linear, n, path, puff, rainbow, shine, sparkle, stroke, url } from '../../art/kit.ts';
 import { bo, puffcorn, tilly } from './characters.ts';
 import {
   bird,
@@ -119,7 +119,7 @@ export function drawBridge(c: { on(id: string): boolean; pick<T>(id: string, a: 
     `<clipPath id="riverClip"><path d="${RIVER}"/></clipPath>`,
   );
 
-  const stripeColors = c.on('rainbow') ? P.rainbow : P.rainbow.slice(0, 5);
+  const stripeColors = c.on('rainbow') ? [...P.rainbow.slice(0, 5), '#AE94FF'] : P.rainbow.slice(0, 5);
   const sky =
     `<rect width="800" height="600" fill="${url('sky')}"/>` +
     puffCloud(330, 64, 0.85) +
@@ -240,7 +240,7 @@ export const level2: Level = {
       id: 'mushroom',
       kind: 'color',
       theme: 'colors',
-      hit: { type: 'circle', cx: 76, cy: 534, r: 52 },
+      hit: { type: 'circle', cx: 76, cy: 530, r: 52 },
       label: 'Pink mushroom, blue mushroom',
       say: 'A pink mushroom… and a blue mushroom!',
     },
@@ -285,6 +285,11 @@ export const level2: Level = {
   sticker: {
     id: 'st-rv-2',
     name: 'Dabble the Duckling',
-    draw: () => duckling(108, 150, 3.0),
+    draw: () =>
+      ellipse(100, 156, 78, 18, '#BDEBFF', stroke('#86CDEB', 3)) +
+      ellipse(70, 152, 22, 5, '#FFFFFF', { opacity: 0.7 }) +
+      duckling(110, 152, 2.3) +
+      sparkle(160, 56, 9, P.lemon) +
+      sparkle(40, 88, 7, '#A8E6FF'),
   },
 };

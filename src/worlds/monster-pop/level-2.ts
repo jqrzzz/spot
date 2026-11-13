@@ -249,8 +249,10 @@ const level: Level = {
       sparkle(612, 400, 7, '#fff') +
       sparkle(770, 380, 6, '#fff') +
       // foreground: water bottle & towel
-      rect(24, 528, 90, 30, 12, '#C9B3FF', stroke('#9C82DE', 3.5)) +
-      path('M30 540H108', 'none', stroke('#fff', 3)) +
+      rect(22, 526, 86, 32, 14, '#C9B3FF', stroke('#9C82DE', 3.5)) +
+      path('M30 534H96', 'none', { ...stroke('#fff', 3), opacity: 0.7 }) +
+      circle(98, 542, 17, '#D9CCFF', stroke('#9C82DE', 3.5)) +
+      path('M98 542m-3 0a3 3 0 1 1 6 0a7 7 0 1 1 -14 0a11 11 0 1 1 22 0', 'none', stroke('#9C82DE', 2.5)) +
       rect(108, 470, 34, 86, 12, '#9FE8D4', stroke('#4FB79A', 3.5)) +
       rect(114, 458, 22, 16, 5, '#FF9FC6', stroke(P.pinkDeep, 3)) +
       heart(125, 512, 8, '#fff') +

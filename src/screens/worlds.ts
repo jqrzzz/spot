@@ -7,6 +7,7 @@ import { icon } from '../identity/icons.ts';
 import { WORLDS } from '../worlds/registry.ts';
 import { button, h, pulse, svg } from '../ui/dom.ts';
 import { stickerMarkup } from '../ui/sticker.ts';
+import { namespaceIds, nextPrefix } from '../core/scene.ts';
 import { go, type Screen } from '../ui/router.ts';
 
 export function playerChip(pid: string): HTMLElement {
@@ -35,7 +36,7 @@ export function worldsScreen(pid: string): Screen {
     const card = h(
       'button',
       { type: 'button', class: 'world-card', '--accent': w.theme.accent, '--sky1': w.theme.sky[0], '--sky2': w.theme.sky[1], '--deep': w.theme.deep, style: { animationDelay: `${i * 90}ms` }, 'aria-label': `${w.name}. ${done} of ${total} done.` },
-      h('span', { class: 'world-cover' }, svg(w.cover(), '0 0 800 600', 'cover-svg', { preserveAspectRatio: 'xMidYMid slice', 'aria-hidden': 'true' })),
+      h('span', { class: 'world-cover' }, svg(namespaceIds(w.cover(), nextPrefix('c')), '0 0 800 600', 'cover-svg', { preserveAspectRatio: 'xMidYMid slice', 'aria-hidden': 'true' })),
       h('span', { class: 'world-info' }, h('span', { class: 'world-name' }, w.name), h('span', { class: 'world-tag' }, w.tagline), dots),
       hasBadge ? h('span', { class: 'world-badge' }, svg(stickerMarkup(w.badge, w.theme.sky[0]), '0 0 200 200')) : null,
     );

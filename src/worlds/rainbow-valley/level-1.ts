@@ -216,6 +216,6 @@ export const level1: Level = {
   sticker: {
     id: 'st-rv-1',
     name: 'Pomi the Puffcorn',
-    draw: () => puffcorn({ x: 104, y: 170, s: 1.02, flip: true, pose: 'sit', mood: 'joy', bow: '#FF7FAE', bowSize: 24 }),
+    draw: () => puffcorn({ x: 94, y: 168, s: 0.92, flip: true, pose: 'sit', mood: 'joy', bow: '#FF7FAE', bowSize: 24 }),
   },
 };

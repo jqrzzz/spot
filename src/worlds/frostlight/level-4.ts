@@ -5,7 +5,7 @@
  * mushrooms, and icicles drip from the frosty cliff. Themes: symmetry and size.
  */
 import type { Level, Point } from '../../core/types.ts';
-import { P, circle, defs, ellipse, g, linear, path, rect, sparkle, stroke, url } from '../../art/kit.ts';
+import { P, circle, defs, g, linear, path, rect, sparkle, stroke, url } from '../../art/kit.ts';
 import { bunny, luma, pip } from './characters.ts';
 import {
   F,
@@ -83,7 +83,7 @@ export const level4: Level = {
       kind: 'color',
       theme: 'symmetry',
       hit: { type: 'ellipse', cx: 650, cy: 120, rx: 82, ry: 66 },
-      label: 'Matching wings, different wings',
+      label: 'Same wings, different wings',
       say: 'Both wings match… and now one wing is different!',
     },
     {
@@ -263,7 +263,13 @@ export const level4: Level = {
   },
   sticker: {
     id: 'st-fk-4',
-    name: 'Frost Butterfly',
-    draw: () => defs(frostDefs()) + glow(100, 104, 86, 'fkGlowPink', 0.9) + butterfly(100, 108, 1.32, { left: '#FFB0D6', right: '#FFB0D6', leftDots: '#FFF1F8', rightDots: '#FFF1F8', rot: -6 }) + sparkle(40, 56, 9) + sparkle(162, 150, 8),
+    name: 'Pip and the Butterfly',
+    draw: () =>
+      defs(frostDefs()) +
+      glow(100, 100, 86, 'fkGlowPink', 0.7) +
+      pip(104, 190, { s: 0.92, pose: 'wave', mood: 'love', scarf: P.pinkDeep }) +
+      butterfly(150, 38, 0.48, { left: '#FFB0D6', right: '#FFB0D6', leftDots: '#FFF1F8', rightDots: '#FFF1F8', rot: 16 }) +
+      sparkle(34, 64, 8) +
+      sparkle(172, 120, 7),
   },
 };

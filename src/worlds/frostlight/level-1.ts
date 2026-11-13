@@ -166,8 +166,7 @@ export const level1: Level = {
 
     // ---- Pip (left) and Pebble (right)
     s += pip(246, 532, { s: 1.32, pose: 'wave', mood: 'joy', scarf: c.pick('scarf', P.pinkDeep, '#4FC08D'), look: 1 });
-    const snowball = circle(0, -44, 19, url('fkSnow'), stroke(F.snowLine, 3)) + ellipse(-6, -50, 5, 3, '#FFFFFF');
-    s += pebble(590, 520, { s: 1.2, pose: 'stand', mood: 'happy', hat: '#6DD3A8', holding: snowball, look: -1 });
+    s += pebble(590, 520, { s: 1.2, pose: 'wave', mood: 'joy', hat: '#6DD3A8', scarf: '#FFD66B', look: -1 });
 
     // ---- foreground: bunny peeking from a snow bank (left), sled (right)
     if (c.on('bunny')) s += bunny(92, 566, 1.5, { body: false, mood: 'happy' });

@@ -2,7 +2,7 @@
 import { store } from '../core/storage.ts';
 import { sound } from '../core/audio.ts';
 import { voice } from '../core/voice.ts';
-import { sceneMarkup, nextPrefix } from '../core/scene.ts';
+import { namespaceIds, sceneMarkup, nextPrefix } from '../core/scene.ts';
 import { getBuddy } from '../identity/buddies.ts';
 import { icon } from '../identity/icons.ts';
 import { findWorld } from '../worlds/registry.ts';
@@ -37,8 +37,8 @@ export function mapScreen(pid: string, wid: string): Screen {
 
   const el = h('div', { class: 'screen map', '--accent': world.theme.accent, '--sky1': world.theme.sky[0], '--sky2': world.theme.sky[1], '--deep': world.theme.deep, '--path': world.theme.path });
   const art = h('div', { class: 'map-art' });
-  if (world.mapArt) art.append(svg(world.mapArt(), '0 0 1200 800', 'map-svg', { preserveAspectRatio: 'xMidYMid slice', 'aria-hidden': 'true' }));
-  else art.append(svg(world.cover(), '0 0 800 600', 'map-svg faded', { preserveAspectRatio: 'xMidYMid slice', 'aria-hidden': 'true' }));
+  if (world.mapArt) art.append(svg(namespaceIds(world.mapArt(), nextPrefix('m')), '0 0 1200 800', 'map-svg', { preserveAspectRatio: 'xMidYMid slice', 'aria-hidden': 'true' }));
+  else art.append(svg(namespaceIds(world.cover(), nextPrefix('m')), '0 0 800 600', 'map-svg faded', { preserveAspectRatio: 'xMidYMid slice', 'aria-hidden': 'true' }));
 
   const top = h(
     'header',

@@ -115,7 +115,7 @@ export function drawKiteDay(c: { on(id: string): boolean; pick<T>(id: string, a:
 
 export const level4: Level = {
   id: 'rv-4',
-  title: 'Kite Day on Cloud-Puff Meadow',
+  title: 'Cloud-Puff Kite Day',
   findCount: 5,
   differences: [
     {
@@ -154,9 +154,9 @@ export const level4: Level = {
       id: 'flowers',
       kind: 'pattern',
       theme: 'patterns',
-      hit: { type: 'circle', cx: 446, cy: 552, r: 38 },
-      label: 'Pink, yellow, pink… which?',
-      say: 'Pink, yellow, pink, yellow… one flower broke the pattern!',
+      hit: { type: 'circle', cx: 446, cy: 549, r: 35 },
+      label: 'Yellow flower or pink flower?',
+      say: 'Pink, yellow, pink, yellow… one flower is different!',
     },
     // ---- extra candidates
     {

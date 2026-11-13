@@ -117,7 +117,7 @@ export function pip(x: number, y: number, o: CharOpts = {}): string {
 const PEN = { back: '#7F8FD9', line: '#55589E', belly: '#FFFDF8', beak: '#FFB47A', feet: '#FFAE7A' };
 
 /** Pebble the penguin (≈ 130 tall at s = 1). */
-export function pebble(x: number, y: number, o: CharOpts & { skates?: boolean } = {}): string {
+export function pebble(x: number, y: number, o: CharOpts & { skates?: boolean; crown?: boolean } = {}): string {
   const s = o.s ?? 1;
   const L = PEN.line;
   const pose = o.pose ?? 'stand';
@@ -142,8 +142,24 @@ export function pebble(x: number, y: number, o: CharOpts & { skates?: boolean } 
   if (o.scarf) a += scarf(-60, 34, o.scarf, o.scarfStripe, -1);
   a += face({ x: 0, y: -88, s: 0.95, mood: o.mood ?? 'happy', look: o.look, gap: 15 });
   a += path('M-6 -86Q0 -84 6 -86L0 -78Z', PEN.beak, stroke(darken(PEN.beak, 0.3), 2.4));
-  if (o.hat) a += bobbleHat(-128, 32, o.hat, o.hatStripe);
+  if (o.crown) a += crown(-120, 30);
+  else if (o.hat) a += bobbleHat(-128, 32, o.hat, o.hatStripe);
   return place(a, x, y, s, o.flip);
+}
+
+/** Little festival crown sitting on a head top at y (half-width hw). */
+export function crown(y: number, hw: number): string {
+  const L = '#C98A2E';
+  const d = `M${-hw} ${y}L${-hw - 6} ${y - 34}L${-hw * 0.45} ${y - 18}L0 ${y - 44}L${hw * 0.45} ${y - 18}L${hw + 6} ${y - 34}L${hw} ${y}Z`;
+  return (
+    path(d, '#FFD66B', stroke(L, 3.5)) +
+    rect(-hw - 2, y - 8, hw * 2 + 4, 12, 5, '#FFE89A', stroke(L, 3)) +
+    circle(-hw - 6, y - 36, 5, '#FF9DBB', stroke(L, 2.4)) +
+    circle(0, y - 46, 6, '#9CC9FF', stroke(L, 2.4)) +
+    circle(hw + 6, y - 36, 5, '#B3EECB', stroke(L, 2.4)) +
+    circle(0, y - 2, 4, '#FF9DBB', stroke(L, 2)) +
+    path(`M${-hw + 4} ${y - 14}L${-hw + 2} ${y - 26}`, 'none', { ...stroke('#FFFFFF', 3), opacity: 0.7 })
+  );
 }
 
 /* ------------------------------------------------------------------ Luma the snowy owl */

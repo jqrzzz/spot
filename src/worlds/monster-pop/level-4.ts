@@ -27,15 +27,15 @@ function lantern(x: number, y: number, color: string): string {
 /** Easel sign with a big arrow (pointing right, or left). */
 function arrowSign(left: boolean): string {
   const x = 98;
-  const y = 334;
-  const arrow = `M${x - 26} ${y - 9}H${x + 2}V${y - 22}L${x + 28} ${y}L${x + 2} ${y + 22}V${y + 9}H${x - 26}Z`;
+  const y = 326;
+  const arrow = `M${x - 34} ${y - 10}H${x - 2}V${y - 30}L${x + 36} ${y}L${x - 2} ${y + 30}V${y + 10}H${x - 34}Z`;
   return (
     ellipse(x, 530, 44, 7, P.ink, { opacity: 0.14 }) +
     path(`M${x - 34} 528L${x - 6} ${y + 20}M${x + 34} 528L${x + 6} ${y + 20}M${x} ${y + 30}L${x + 4} 526`, 'none', stroke(P.woodDeep, 7)) +
     path(`M${x - 34} 528L${x - 6} ${y + 20}M${x + 34} 528L${x + 6} ${y + 20}`, 'none', stroke(P.wood, 3)) +
-    circle(x, y, 46, '#FFF4DC', stroke(P.woodDeep, 5)) +
-    circle(x, y, 38, 'none', { ...stroke('#F4C98F', 3), 'stroke-dasharray': '3 9' }) +
-    g(path(arrow, '#FF8FBF', stroke('#D2669C', 4)) + path(`M${x - 20} ${y - 3}H${x + 4}`, 'none', stroke('#FFC4DD', 3)), left ? { transform: `translate(${x * 2} 0) scale(-1 1)` } : {})
+    circle(x, y, 54, '#FFF4DC', stroke(P.woodDeep, 5)) +
+    circle(x, y, 46, 'none', { ...stroke('#F4C98F', 3), 'stroke-dasharray': '3 9' }) +
+    g(path(arrow, '#FF8FBF', stroke('#D2669C', 4)) + path(`M${x - 28} ${y - 3}H${x + 2}`, 'none', stroke('#FFC4DD', 3.5)), left ? { transform: `translate(${x * 2} 0) scale(-1 1)` } : {})
   );
 }
 
@@ -68,7 +68,7 @@ const HEADPHONES =
   star(67, -130, 7, '#fff', { width: 1.5 });
 
 const SEQ = ['#FF9FC6', '#FFDA6B', '#8FCBFF'];
-const PANEL_SEQ = ['#FF9FC6', '#FFE27A', '#9FE8DC'];
+const PANEL_SEQ = ['#FF9FC6', '#FFE27A', '#A6EBA8'];
 
 const STAR_SHOE: Shoe = { color: '#FF9FC6', pattern: 'stars', mark: '#FFFFFF' };
 const STRIPE_SHOE: Shoe = { color: '#FFE27A', pattern: 'stripes', mark: '#FF7FAF' };
@@ -82,7 +82,7 @@ const level: Level = {
       id: 'mic',
       kind: 'color',
       theme: 'music',
-      hit: { type: 'circle', cx: 352, cy: 420, r: 46 },
+      hit: { type: 'circle', cx: 342, cy: 418, r: 48 },
       label: 'Pink mic, blue mic',
       say: 'The microphone is pink… and blue!',
     },
@@ -90,7 +90,7 @@ const level: Level = {
       id: 'wave',
       kind: 'direction',
       theme: 'left-right',
-      hit: { type: 'ellipse', cx: 562, cy: 404, rx: 118, ry: 74 },
+      hit: { type: 'rect', x: 444, y: 342, w: 234, h: 130 },
       label: 'Waving left hand, right hand',
       say: 'Lolo waves with one hand… and then with the other hand!',
     },
@@ -98,7 +98,7 @@ const level: Level = {
       id: 'arrow',
       kind: 'direction',
       theme: 'left-right',
-      hit: { type: 'circle', cx: 98, cy: 334, r: 60 },
+      hit: { type: 'circle', cx: 98, cy: 326, r: 66 },
       label: 'Arrow left, arrow right',
       say: 'The arrow points one way… and the other way!',
     },
@@ -106,8 +106,8 @@ const level: Level = {
       id: 'lanterns',
       kind: 'pattern',
       theme: 'sequences',
-      hit: { type: 'circle', cx: 474, cy: 118, r: 46 },
-      label: 'Yellow lantern, pink lantern',
+      hit: { type: 'circle', cx: 543, cy: 126, r: 46 },
+      label: 'Blue lantern, yellow lantern',
       say: 'Pink, yellow, blue… one lantern broke the pattern!',
     },
     {
@@ -123,7 +123,7 @@ const level: Level = {
       id: 'headphones',
       kind: 'add',
       theme: 'music',
-      hit: { type: 'circle', cx: 400, cy: 240, r: 68 },
+      hit: { type: 'circle', cx: 400, cy: 214, r: 72 },
       label: 'Headphones or no headphones',
       say: 'Tumtum is wearing big headphones… in one picture!',
     },
@@ -131,14 +131,14 @@ const level: Level = {
       id: 'panels',
       kind: 'pattern',
       theme: 'sequences',
-      hit: { type: 'rect', x: 510, y: 532, w: 112, h: 50 },
-      label: 'Yellow light, blue light',
+      hit: { type: 'rect', x: 510, y: 525, w: 112, h: 60 },
+      label: 'Yellow light, pink light',
       say: 'Pink, yellow, green… one stage light broke the pattern!',
     },
   ],
   draw(c) {
     const lanternColors = SEQ.concat(SEQ, SEQ).slice(0, 7);
-    if (c.on('lanterns')) lanternColors[4] = '#FF9FC6';
+    if (c.on('lanterns')) lanternColors[5] = '#FFDA6B';
     const lanterns = lanternColors
       .map((col, i) => {
         const [x, y] = sagPoint(150, 78, 650, 78, 12, (i + 0.5) / 7);
@@ -146,7 +146,7 @@ const level: Level = {
       })
       .join('');
     const panels = [0, 1, 2, 3, 4, 5]
-      .map((i) => panel(78 + i * 110, c.on('panels') && i === 4 ? '#8FCBFF' : PANEL_SEQ[i % 3]))
+      .map((i) => panel(78 + i * 110, c.on('panels') && i === 4 ? '#FF9FC6' : PANEL_SEQ[i % 3]))
       .join('');
     const shoeL = c.pick('shoes', STAR_SHOE, STRIPE_SHOE);
     const shoeR = c.pick('shoes', STRIPE_SHOE, STAR_SHOE);

@@ -36,19 +36,19 @@ const mugCentre = ([x, y]: [number, number, string]): Point => [x, y - 6];
 /** Luma's cocoa stand: back panel, posts, striped awning. Counter is drawn separately (in front of Luma). */
 function standBack(): string {
   const wd = darken(P.wood, 0.35);
-  let s = rect(296, 300, 208, 120, 6, '#E8C2A0', stroke(wd, 3.5));
-  s += path('M300 336H500M300 372H500', 'none', { ...stroke(wd, 2), opacity: 0.3 });
-  s += rect(294, 300, 12, 176, 4, url('fkWood'), stroke(wd, 3)) + rect(494, 300, 12, 176, 4, url('fkWood'), stroke(wd, 3));
+  let s = rect(296, 284, 208, 136, 6, '#E8C2A0', stroke(wd, 3.5));
+  s += path('M300 320H500M300 356H500', 'none', { ...stroke(wd, 2), opacity: 0.3 });
+  s += rect(294, 284, 12, 192, 4, url('fkWood'), stroke(wd, 3)) + rect(494, 284, 12, 192, 4, url('fkWood'), stroke(wd, 3));
   // sign post (the sign itself is a difference)
-  s += rect(396, 232, 8, 64, 3, url('fkWood'), stroke(wd, 2.6));
+  s += rect(396, 218, 8, 64, 3, url('fkWood'), stroke(wd, 2.6));
   return s;
 }
 
 /** Striped, scalloped awning with fairy lights (drawn in front of Luma's head). */
 function awning(): string {
   let s = '';
-  const top = 278;
-  const bot = 318;
+  const top = 262;
+  const bot = 300;
   s += path(`M284 ${bot}L300 ${top}H500L516 ${bot}Z`, '#FFFFFF', stroke('#C6739F', 3.5));
   for (let i = 0; i < 6; i++) {
     const x0 = 300 + i * 33.3;
@@ -127,7 +127,7 @@ export const level3: Level = {
       id: 'sign',
       kind: 'shape',
       theme: 'shapes',
-      hit: { type: 'circle', cx: 400, cy: 216, r: 58 },
+      hit: { type: 'circle', cx: 400, cy: 200, r: 58 },
       label: 'Circle sign and star sign',
       say: 'The sign is a circle… and a star!',
     },
@@ -213,8 +213,8 @@ export const level3: Level = {
 
     // the cocoa stand with Luma behind the counter
     s += standBack();
-    s += sign(400, 216, c.pick('sign', 'round', 'star'));
-    s += luma(400, 446, { s: 0.9, pose: 'wave', mood: 'joy', specs: true, shadow: false });
+    s += sign(400, 200, c.pick('sign', 'round', 'star'));
+    s += luma(400, 452, { s: 0.92, pose: 'wave', mood: 'joy', specs: true, shadow: false });
     s += awning();
     s += counter();
     const mugs = c.on('mugs') ? [...MUGS, MUG_EXTRA] : MUGS;
