@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no" />
+    <title>Little Wonder</title>
+    <meta name="description" content="Little Wonder — a world of tiny discoveries. A magical, ad-free spot-the-difference game for young explorers." />
+    <meta name="theme-color" content="#EFE4FF" />
+    <meta name="color-scheme" content="light" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Little Wonder" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="preload" href="/fonts/fredoka-latin-wght-v1.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <style>
+      /* Instant splash while the game script loads */
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        background: linear-gradient(160deg, #d7ecff 0%, #efe4ff 50%, #ffe3f0 100%);
+      }
+      #splash {
+        position: fixed;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        transition: opacity 0.4s;
+        z-index: 100;
+        pointer-events: none;
+      }
+      #splash .dots {
+        display: flex;
+        gap: 12px;
+      }
+      #splash .dots i {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #ff9cc8;
+        animation: splash 0.9s ease-in-out infinite;
+      }
+      #splash .dots i:nth-child(2) {
+        background: #ffd66b;
+        animation-delay: 0.15s;
+      }
+      #splash .dots i:nth-child(3) {
+        background: #8cd0ff;
+        animation-delay: 0.3s;
+      }
+      #splash .dots i:nth-child(4) {
+        background: #b79bff;
+        animation-delay: 0.45s;
+      }
+      @keyframes splash {
+        0%,
+        100% {
+          transform: translateY(0) scale(1);
+        }
+        50% {
+          transform: translateY(-16px) scale(1.1);
+        }
+      }
+      html.ready #splash {
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="splash" aria-hidden="true"><div class="dots"><i></i><i></i><i></i><i></i></div></div>
+    <div id="app"></div>
+    <noscript><p style="font: 20px system-ui; text-align: center; margin-top: 30vh">Little Wonder needs JavaScript to play.</p></noscript>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

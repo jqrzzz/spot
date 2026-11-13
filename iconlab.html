@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Little Wonder — Identity Lab</title>
+    <!-- Dev-only preview of buddies, logo, title art, app icon and UI icons. Not part of the production build. -->
+    <style>
+      @font-face {
+        font-family: 'Fredoka';
+        src: url('/src/assets/fonts/fredoka-latin-wght.woff2') format('woff2');
+        font-weight: 300 700;
+        font-display: block;
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; padding: 16px 24px 60px; font: 14px/1.4 Fredoka, system-ui, sans-serif; background: #f6f2fc; color: #3d2c52; }
+      body.only { padding: 0; background: transparent; overflow: hidden; }
+      body.only svg { display: block; }
+      h1 { font-size: 26px; margin: 8px 0 4px; font-weight: 600; }
+      h2 { font-size: 18px; margin: 26px 0 8px; font-weight: 600; }
+      h2 small { font-weight: 400; color: #7b6d93; font-size: 13px; }
+      .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end; }
+      .card { background: #fff; border-radius: 18px; padding: 10px; box-shadow: 0 2px 10px #3d2c5214; }
+      .cap { font-size: 12px; color: #7b6d93; text-align: center; margin-top: 2px; }
+      .buddy { border-radius: 16px; }
+      .bar { display: flex; gap: 14px; align-items: center; padding: 8px 14px; border-radius: 999px; }
+      .icons { display: grid; grid-template-columns: repeat(11, auto); gap: 10px; justify-content: start; }
+      .ic { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 18px; }
+      .ic svg { width: 40px; height: 40px; }
+      .ic.sm svg { width: 24px; height: 24px; }
+      .ic.btn { box-shadow: inset 0 -4px 0 #0002; }
+      .mask { border-radius: 50%; overflow: hidden; }
+      .sq { border-radius: 22%; overflow: hidden; }
+    </style>
+  </head>
+  <body>
+    <main id="lab"></main>
+    <script type="module" src="/src/dev/iconlab.ts"></script>
+  </body>
+</html>
