@@ -462,8 +462,8 @@ export function kite(x: number, y: number, s: number, fill: string, pattern: 'st
   const l = darken(fill, 0.3);
   const d = 'M0 -46L32 -4L0 50L-32 -4Z';
   let marks = '';
-  if (pattern === 'stripes') marks = path('M-24 -14L24 -14M-30 6L30 6M-22 24L22 24', 'none', stroke(mark, 6));
-  else if (pattern === 'dots') marks = circle(0, -22, 5.5, mark) + circle(-14, 0, 5.5, mark) + circle(14, 0, 5.5, mark) + circle(0, 24, 5.5, mark);
+  if (pattern === 'stripes') marks = path('M-24 -16L24 -16M-30 4L30 4M-22 24L22 24', 'none', stroke(mark, 8));
+  else if (pattern === 'dots') marks = circle(0, -24, 6.5, mark) + circle(-15, -2, 6.5, mark) + circle(15, -2, 6.5, mark) + circle(0, 22, 6.5, mark);
   else if (pattern === 'zigzag') marks = path('M-26 -4L-13 -14L0 -4L13 -14L26 -4M-20 14L-10 6L0 14L10 6L20 14', 'none', stroke(mark, 4.4));
   else if (pattern === 'hearts') marks = heart(0, -16, 7, mark) + heart(-13, 6, 6, mark) + heart(13, 6, 6, mark) + heart(0, 26, 6, mark);
   let tailArt = path(`M0 50C${-14 * tailWave} 70 ${16 * tailWave} 90 ${2 * tailWave} 112C${-10 * tailWave} 130 ${10 * tailWave} 150 ${-2 * tailWave} 170`, 'none', stroke(P.inkSoft, 2.4));
@@ -840,8 +840,8 @@ export function dandelion(x: number, y: number, s: number, seeds: boolean): stri
       rays += g(path('M0 0V-20', 'none', stroke('#D9D2EA', 1.6)) + circle(0, -22, 3.6, '#FFFFFF', stroke('#D9D2EA', 1.2)), { transform: `rotate(${a})` });
     }
     head = circle(0, 0, 22, '#FFFFFF', { opacity: 0.55 }) + rays + circle(0, 0, 4.5, '#E8D9B0');
-    head += g(path('M0 0V-14', 'none', stroke('#D9D2EA', 1.4)) + circle(0, -16, 3, '#FFFFFF', stroke('#D9D2EA', 1)), { transform: 'translate(34 -22) rotate(-40)' });
-    head += g(path('M0 0V-14', 'none', stroke('#D9D2EA', 1.4)) + circle(0, -16, 3, '#FFFFFF', stroke('#D9D2EA', 1)), { transform: 'translate(-30 -30) rotate(-60)' });
+    head += g(path('M0 0V-14', 'none', stroke('#D9D2EA', 1.4)) + circle(0, -16, 3, '#FFFFFF', stroke('#D9D2EA', 1)), { transform: 'translate(30 -24) rotate(40)' });
+    head += g(path('M0 0V-14', 'none', stroke('#D9D2EA', 1.4)) + circle(0, -16, 3, '#FFFFFF', stroke('#D9D2EA', 1)), { transform: 'translate(-22 -34) rotate(-30)' });
   } else {
     let petals = '';
     for (let i = 0; i < 18; i++) petals += ellipse(0, -12, 3.6, 10, i % 2 ? '#FFE07A' : '#FFD34F', { ...stroke('#E3AE3A', 1.4), transform: `rotate(${i * 20})` });

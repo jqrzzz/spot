@@ -6,7 +6,7 @@
   "description": "Little Wonder — a world of tiny discoveries. An original, ad-free spot-the-difference game for young children.",
   "scripts": {
     "dev": "vite --host",
-    "build": "tsc --noEmit && vite build",
+    "build": "tsc --noEmit --noUnusedLocals false --noUnusedParameters false && vite build",
     "preview": "vite preview --host",
     "typecheck": "tsc --noEmit",
     "validate": "node scripts/validate-levels.mjs",

@@ -6,6 +6,7 @@ import { P, face, star } from '../../art/kit.ts';
 import { level1 } from './level-1.ts';
 import { level2 } from './level-2.ts';
 import { level3 } from './level-3.ts';
+import { level4 } from './level-4.ts';
 
 const world: World = {
   id: 'frostlight',
@@ -14,7 +15,7 @@ const world: World = {
   theme: { sky: ['#D3EEFF', '#F1E9FF'], accent: '#6FB7F0', deep: '#2F3F66', path: '#FFFFFF' },
   music: 'frost',
   cover: () => level1.draw({ on: () => false, pick: (_id, a) => a }),
-  levels: [level1, level2, level3],
+  levels: [level1, level2, level3, level4],
   badge: {
     id: 'badge-fk',
     name: 'Frostlight Kingdom Badge',

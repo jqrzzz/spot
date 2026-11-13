@@ -36,8 +36,10 @@ const bunnyCentre = ([x, y]: [number, number]): Point => [x, y - 44];
 function cliff(): string {
   const rockL = '#7F78C4';
   return (
-    path('M-10 430V176Q30 150 80 158Q140 140 214 168Q232 174 226 192L222 430Z', '#A9A2DE', stroke(rockL, 4)) +
-    path('M20 220Q60 240 90 228M140 260Q170 270 200 256M30 320Q70 330 110 316M120 380Q160 392 200 378', 'none', { ...stroke(rockL, 3), opacity: 0.45 }) +
+    path('M-10 440V176Q30 150 80 158Q140 140 214 168Q232 174 226 196Q214 236 232 270Q244 300 226 330Q212 360 236 392Q246 420 230 440Z', '#A9A2DE', stroke(rockL, 4)) +
+    path('M226 200Q204 240 222 272Q232 300 214 330Q200 360 222 394Q228 418 216 440H170Q186 400 176 360Q168 320 184 290Q196 250 178 214Z', '#9790D4') +
+    path('M20 236L60 256L50 300M120 230L150 270L132 320M40 340L90 360L76 410M150 360L180 390', 'none', { ...stroke(rockL, 3), opacity: 0.4 }) +
+    path('M30 250Q40 290 34 330M100 250Q110 300 104 360', 'none', { ...stroke('#C7C1EE', 5), opacity: 0.6 }) +
     path('M-10 230Q60 214 120 226T224 220V196H-10Z', '#9C95D8', { opacity: 0.5 }) +
     // ledge underside
     path('M-10 186Q100 196 226 188L224 200Q100 210 -10 200Z', '#8E87CF') +
@@ -113,7 +115,7 @@ export const level4: Level = {
       id: 'snowflake',
       kind: 'shape',
       theme: 'symmetry',
-      hit: { type: 'circle', cx: 400, cy: 178, r: 74 },
+      hit: { type: 'circle', cx: 400, cy: 162, r: 82 },
       label: 'Matching arms, one short arm',
       say: 'All the snowflake arms match… but one is short!',
     },
@@ -194,7 +196,8 @@ export const level4: Level = {
 
     // the arch + giant snowflake keystone
     s += crystalArch();
-    s += snowflake(400, 178, 52, { color: '#FFFFFF', line: '#7E9BE0', width: 7, short: c.on('snowflake') ? [1] : [], glowId: 'fkGlowBlue', tipColor: '#CFE9FF' });
+    s += circle(400, 162, 80, url('fkGlowLilac'), { opacity: 0.7 });
+    s += snowflake(400, 162, 66, { color: '#EAF5FF', line: '#5B7DD2', width: 10, short: c.on('snowflake') ? [1] : [], glowId: false, tipColor: '#FFC6E2' });
 
     // path to the arch
     s += path('M350 600Q380 500 382 396H418Q420 500 470 600Z', url('l4path'), { opacity: 0.9 });
@@ -214,6 +217,11 @@ export const level4: Level = {
 
     // crystal clusters and glowing mushrooms
     s += crystalCluster(250, 432, 0.7, 'blue') + crystalCluster(560, 418, 0.55, 'lilac');
+    s += crystalCluster(334, 480, 0.5, 'pink') + crystalCluster(462, 470, 0.45, 'blue') + crystalCluster(40, 470, 0.8, 'pink');
+    s += snowBank([
+      [300, 520, 22],
+      [324, 526, 18],
+    ]);
     s += mushroom(648, 560, 0.7, '#C9B3FF') + mushroom(770, 566, 0.6, '#9FD8FF');
     s += glow(712, 520, 64, 'fkGlowPink', 0.8);
     s += mushroom(712, 552, c.pick('mushroom', 1.45, 0.8), '#FFB3CF');
@@ -229,6 +237,10 @@ export const level4: Level = {
     // foreground framing
     s += snowBank([
       [-10, 600, 44],
+      [30, 612, 30],
+    ]);
+    s += crystalCluster(30, 596, 0.9, 'lilac');
+    s += snowBank([
       [800, 596, 40],
     ]);
     s += lshadow(400, 596, 60, 6, 0.1);
