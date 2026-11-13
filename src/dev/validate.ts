@@ -116,6 +116,17 @@ function overlapCells(a: HitShape, b: HitShape): number {
   return cells;
 }
 
+/** Gap between two shapes (exact when one is a circle, sampled otherwise). */
+function gapBetween(a: HitShape, b: HitShape): number {
+  if (a.type === 'circle') return shapeDistance(b, [a.cx, a.cy]) - a.r;
+  if (b.type === 'circle') return shapeDistance(a, [b.cx, b.cy]) - b.r;
+  const ba = shapeBounds(a);
+  let best = Infinity;
+  for (let y = ba.y; y <= ba.y + ba.h; y += 3)
+    for (let x = ba.x; x <= ba.x + ba.w; x += 3) if (shapeDistance(a, [x, y]) === 0) best = Math.min(best, shapeDistance(b, [x, y]));
+  return best;
+}
+
 export async function validateLevel(world: World, level: Level): Promise<LevelReport> {
   const errors: string[] = [];
   const warnings: string[] = [];
@@ -147,9 +158,17 @@ export async function validateLevel(world: World, level: Level): Promise<LevelRe
   }
   for (let i = 0; i < level.differences.length; i++)
     for (let j = i + 1; j < level.differences.length; j++) {
-      const c = overlapCells(level.differences[i].hit, level.differences[j].hit);
+      const a = level.differences[i].hit;
+      const b = level.differences[j].hit;
+      const c = overlapCells(a, b);
       if (c > 0) errors.push(`hit areas "${level.differences[i].id}" and "${level.differences[j].id}" overlap`);
+      else if (gapBetween(a, b) < 8) warnings.push(`hit areas "${level.differences[i].id}" and "${level.differences[j].id}" nearly touch (keep ≥ 10 units apart)`);
     }
+  for (const d of level.differences) {
+    const b = shapeBounds(d.hit);
+    const margin = Math.min(b.x, b.y, SCENE_W - (b.x + b.w), SCENE_H - (b.y + b.h));
+    if (margin >= 0 && margin < 12) warnings.push(`"${d.id}" hit area is only ${Math.round(margin)} units from the edge (keep ≥ 15; edges are hard to tap)`);
+  }
 
   // ---------- rendering
   let base: Uint8ClampedArray;

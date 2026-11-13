@@ -666,6 +666,19 @@ button {
   animation: bob 3s ease-in-out infinite;
 }
 
+@media (max-height: 500px) and (min-aspect-ratio: 1/1) {
+  .world-cover {
+    aspect-ratio: 16 / 9;
+  }
+  .world-info {
+    padding: 6px 14px 10px;
+  }
+  .world-dots i svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
 @media (max-aspect-ratio: 1/1) {
   .world-list {
     grid-template-columns: 1fr;

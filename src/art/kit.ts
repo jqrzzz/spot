@@ -260,7 +260,11 @@ export interface FaceOpts {
   ink?: string;
 }
 
-/** The shared Little Wonder face. Eyes sit on y; the mouth sits ~12·s below. */
+/**
+ * The shared Little Wonder face. Eyes sit on y; the mouth sits ~12·s below.
+ * For "emotions" differences pick moods that change a lot of pixels, e.g. joy↔love, joy↔surprised,
+ * happy↔sleepy or happy↔sad. happy↔surprised alone is too subtle unless the face is drawn large.
+ */
 export function face(o: FaceOpts): string {
   const { x, y } = o;
   const s = o.s ?? 1;
