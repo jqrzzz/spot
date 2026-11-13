@@ -1,0 +1,22 @@
+{
+  "name": "little-wonder",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Little Wonder — a world of tiny discoveries. An original, ad-free spot-the-difference game for young children.",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --host",
+    "typecheck": "tsc --noEmit",
+    "validate": "node scripts/validate-levels.mjs",
+    "snap": "node scripts/snap.mjs",
+    "test": "node --test tests/*.test.ts",
+    "playtest": "node scripts/playtest.mjs",
+    "prodcheck": "node scripts/prodcheck.mjs"
+  },
+  "devDependencies": {
+    "typescript": "5.9",
+    "vite": "^7.3.8"
+  }
+}

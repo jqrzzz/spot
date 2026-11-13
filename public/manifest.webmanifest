@@ -1,0 +1,19 @@
+{
+  "name": "Little Wonder",
+  "short_name": "Little Wonder",
+  "description": "A world of tiny discoveries — a magical, ad-free spot-the-difference game.",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["fullscreen", "standalone"],
+  "orientation": "any",
+  "background_color": "#EFE4FF",
+  "theme_color": "#EFE4FF",
+  "categories": ["games", "kids", "education"],
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
