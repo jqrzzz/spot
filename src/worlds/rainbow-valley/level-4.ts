@@ -9,6 +9,7 @@ import { bo, puffcorn, tilly } from './characters.ts';
 import {
   bird,
   bush,
+  butterfly,
   cloudPuffPlant,
   daisy,
   dandelion,
@@ -106,6 +107,10 @@ export function drawKiteDay(c: { on(id: string): boolean; pick<T>(id: string, a:
     bird(c.pick('bird', 156, 162), c.pick('bird', 500, 562), 1.0, '#9CCBFF', { mood: 'happy', flip: true }) +
     flowerColors.map((col, i) => daisy(290 + i * 52, 604, 1.15, col, P.lemon, 46, 8)).join('') +
     bush(800, 600, 0.8, '#97DB98', '#FFFFFF', 12) +
+    cloudPuffPlant(250, 530, 0.75) +
+    cloudPuffPlant(532, 526, 0.68) +
+    butterfly(488, 448, 0.42, P.lilac, 'dots', 12) +
+    butterfly(330, 420, 0.36, '#FFC59E', 'hearts', -10) +
     tulip(580, 604, 0.7, '#C9B2FF') +
     tulip(604, 606, 0.55, '#FFB0CC') +
     sparkle(612, 452, 6);

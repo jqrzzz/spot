@@ -134,18 +134,6 @@ export function mic(x: number, y: number, color: string, deg = 0, s = 1, head?: 
   );
 }
 
-/** Mic on a stand. (x, y) = floor point; `h` = height. Mic colour is a parameter. */
-export function micStand(x: number, y: number, h: number, color: string, head?: string, s = 1.15): string {
-  return (
-    ellipse(x, y, 34, 7, P.ink, { opacity: 0.14 }) +
-    path(`M${x - 28} ${y}L${x} ${y - 14}L${x + 28} ${y}`, 'none', stroke('#7F6E9E', 6)) +
-    line(x, y - 10, x, y - h + 30, '#8C7BAE', 7) +
-    line(x, y - 10, x, y - h + 30, '#B9AED0', 2.5) +
-    rect(x - 6, y - h * 0.55, 12, 10, 3, '#6F5E92') +
-    mic(x, y - h + 28, color, 0, s, head)
-  );
-}
-
 /** Maraca. (x, y) = hand; deg tilts. */
 export function maraca(x: number, y: number, color: string, deg = 0, s = 1): string {
   const lc = darken(color, 0.38);
@@ -268,17 +256,6 @@ export function keytar(x: number, y: number, color: string, deg = -18, s = 1, ac
   );
 }
 
-/** Small xylophone (front, slightly from above). Bar colours are a parameter. */
-export function xylophone(x: number, y: number, bars: string[], s = 1): string {
-  let out = rect(-80, 26, 160, 12, 6, P.woodDeep) + line(-70, 38, -76, 58, P.woodDeep, 6) + line(70, 38, 76, 58, P.woodDeep, 6);
-  bars.forEach((c, i) => {
-    const bh = 64 - i * 6;
-    const bx = -72 + i * (144 / bars.length);
-    out += rect(bx, 30 - bh, 144 / bars.length - 4, bh, 5, c, stroke(darken(c, 0.35), 3)) + circle(bx + (144 / bars.length - 4) / 2, 30 - bh + 8, 2.6, '#fff', { opacity: 0.9 });
-  });
-  return g(out, { transform: `translate(${n(x)} ${n(y)}) scale(${n(s)})` });
-}
-
 /* ------------------------------------------------------------------ stage & room pieces */
 
 /** Floor speaker / monitor with two cones. */
@@ -384,11 +361,6 @@ export function starSign(x: number, y: number, r: number, fill: string, bulbsOn 
     bulbs += bulb(x + Math.cos(a) * rr, y + Math.sin(a) * rr, r * 0.055, P.lemon, bulbsOn);
   }
   return star(x, y, r, fill, { outline: darken(fill, 0.35), width: r * 0.08, inner: 0.52 }) + star(x, y, r * 0.7, lighten(fill, 0.35), { inner: 0.52, width: 1 }) + bulbs;
-}
-
-/** Wall poster / picture frame. */
-export function frame(x: number, y: number, w: number, h: number, bg: string, art: string, border: string = P.gold): string {
-  return rect(x - 4, y - 4, w + 8, h + 8, 10, border, stroke(darken(border, 0.35), 3.5)) + rect(x + 4, y + 4, w - 8, h - 8, 6, bg) + art;
 }
 
 /* ------------------------------------------------------------------ rooms */

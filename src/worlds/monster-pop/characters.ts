@@ -58,7 +58,7 @@ export interface MonsterOpts {
   /** Accessory colour override (bow, neckerchief, band…). */
   acc?: string;
   /** Extra accessory. */
-  extra?: 'none' | 'bow' | 'headphones' | 'crown' | 'flower';
+  extra?: 'none' | 'bow' | 'crown' | 'flower';
   /** Drawn behind the body (backpack, cape…), local coords. */
   back?: string;
   /** Drawn after the body and face but under the arms (an instrument held in front), local coords. */
